@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>EcoAventuras - Dinámicas</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat', sans-serif; }
+
+    body {background: #000; color: white;}
+
+    .carrusel {
+      position: fixed;
+      width: 95%;
+      height: 95vh;
+      top: 2.5%;
+      left: 2.5%;
+      overflow: hidden;
+      z-index: 10;
+      background: black;
+      border: 5px solid #0D5051;
+      box-shadow: 0 0 25px rgba(111, 78, 55, 0.95);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%; height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slide.active {opacity: 1;}
+
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6);
+    }
+
+    .info {
+      position: absolute;
+      left: 50px;
+      bottom: 15%;
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      color: white;
+    }
+
+    .info h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #1EADF0, #0AFB60);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .info p {
+      font-size: 18px;
+      line-height: 1.5em;
+    }
+
+    .thumbnails {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      background: transparent;
+      border-radius: 10px;
+    }
+
+    .thumbnails img {
+      width: 90px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.4s ease-in-out, border 0.3s;
+      border: 2px solid transparent;
+      background-color: transparent;
+      filter: brightness(0.95);
+    }
+
+    .thumbnails img.active {
+      transform: scale(1.3);
+      border: 2px solid #18A3B7;
+      filter: brightness(1.1);
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-container {display: flex; align-items: center; gap: 10px;}
+    .logo-container img {height: 50px;}
+
+    .center-text {
+      font-family: 'Luckiest Guy', serif;
+      font-size: 40px;
+      font-weight: bold;
+      background: linear-gradient(to right, #1EADF0, #0AFB60);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color:transparent;
+      text-shadow: 0px 0px 15px darkgreen;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    nav a:hover {text-decoration: underline;}
+
+    main {
+      padding: 50px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: none;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    h1 {
+      font-family: 'Luckiest Guy', serif;
+      font-size: 67px;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 900;
+      background: linear-gradient(to right, #00FF5B, #8AB62E);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    p.subtitle {
+      font-family: 'Luckiest Guy', serif;
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 40px;
+      font-weight: 900;
+      background: linear-gradient(to right, #f2994a, #48b1bf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .dinamicas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: linear-gradient(45deg, #375534, #000000,#202020);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 7px solid transparent;
+      border-image: linear-gradient(to right, #21263A, #157954, #D0D34D) 1;
+      box-shadow: 0 0 30px rgba(0, 102, 0, 0.7);
+    }
+
+    .card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 50px rgba(111, 78, 55, 1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(to right, #cfff99, #25e7d8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .card p {
+      padding: 0 15px 15px;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .precio {
+      background: linear-gradient(90deg, #9CCC65, #123034);
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    @keyframes fadeOut {from{opacity:1;} to{opacity:0; visibility:hidden;}}
+    @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('PORTADAECO.jpg') no-repeat center center/cover;
+      opacity: 0.35;
+      z-index: 0;
+      pointer-events: none;
+      filter: brightness(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Carrusel -->
+  <div class="carrusel" id="carrusel">
+    <div class="slide active">
+      <img src="A1.jpg" />
+      <div class="info">
+        <h2>Paseo a caballos</h2>
+        <p>Disfruta de un recorrido relajante a caballo por senderos naturales.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="A2.jpg" />
+      <div class="info">
+        <h2>Voleibol en arena</h2>
+        <p>Participa en partidos divertidos en cancha de arena para todas las edades.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="A3.jpg" />
+      <div class="info">
+        <h2>Área de picnic</h2>
+        <p>Comparte una comida en zonas verdes perfectas para familias.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="A4.jpg" />
+      <div class="info">
+        <h2>Laguna artificial</h2>
+        <p>Relájate junto al agua en un entorno natural y tranquilo.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="A5.jpg" />
+      <div class="info">
+        <h2>Fútbol en césped</h2>
+                <p>Disfruta partidos en cancha natural con tus amigos o familia.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="A6.jpg" />
+      <div class="info">
+        <h2>Golf</h2>
+        <p>Practica golf en un entorno natural relajante, ideal para todas las edades.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="A7.jpg" />
+      <div class="info">
+        <h2>Baños públicos</h2>
+        <p>Instalaciones limpias y accesibles para tu comodidad durante la visita.</p>
+      </div>
+    </div>
+    <div class="thumbnails">
+      <img src="A1.jpg" class="active" alt="Mini 1">
+      <img src="A2.jpg" alt="Mini 2">
+      <img src="A3.jpg" alt="Mini 3">
+      <img src="A4.jpg" alt="Mini 4">
+      <img src="A5.jpg" alt="Mini 5">
+      <img src="A6.jpg" alt="Mini 6">
+      <img src="A7.jpg" alt="Mini 7">
+    </div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Logo EcoAventuras">
+      <div class="center-text">ECOAVENTURA</div>
+    </div>
+    <nav>
+      <a href="PORTADAECO.html">Inicio</a>
+      <a href="ACTIVIDADESECO.html">Dinámicas</a>
+      <a href="RESERVAECO.html">Reservas</a>
+      <a href="PROMOCIONESECO.html">Promociones</a>
+      <a href="HISTORIASECO.html">Historia</a>
+    </nav>
+  </header>
+
+  
+  <main id="contenido">
+    <h1> DINÁMICAS DEL PARQUE </h1>
+    <p class="subtitle">ACTIVIDADES EMOCIONANTES PARA TODAS LAS EDADES</p>
+    <section class="dinamicas">
+      <div class="card"><img src="A1.jpg"><h3>🐎 Paseo en Caballo</h3><p>Recorre senderos naturales en un paseo guiado.</p><div class="precio">15 Bs - 10 min</div></div>
+      <div class="card"><img src="A2.jpg"><h3>🏐 Voleibol en Arena</h3><p>Diviértete con tu familia en cancha de arena.</p><div class="precio">30 Bs - 1 hr</div></div>
+      <div class="card"><img src="A3.jpg"><h3>🥪 Área de Picnic</h3><p>Disfruta un día al aire libre rodeado de naturaleza.</p><div class="precio">Gratis - Ilimitado</div></div>
+      <div class="card"><img src="A4.jpg"><h3>🌊 Laguna Artificial</h3><p>Relájate en el lago artificial con tus amigos.</p><div class="precio">Gratis - Ilimitado</div></div>
+      <div class="card"><img src="A5.jpg"><h3>⚽ Cancha de Césped</h3><p>Juega fútbol en césped natural.</p><div class="precio">Gratis - Ilimitado</div></div>
+      <div class="card"><img src="A6.jpg"><h3>⛳ Golf</h3><p>Practica golf en un campo natural.</p><div class="precio">20 Bs - 1 hr</div></div>
+      <div class="card"><img src="A7.jpg"><h3>🚻 Baños Públicos</h3><p>Instalaciones limpias y seguras.</p><div class="precio">Gratis</div></div>
+    </section>
+  </main>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const thumbs = document.querySelectorAll('.thumbnails img');
+    const carrusel = document.getElementById('carrusel');
+    const contenido = document.getElementById('contenido');
+
+    let index = 0;
+    const totalSlides = slides.length;
+
+    function showSlide(i) {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === i);
+      });
+      thumbs.forEach((thumb, idx) => {
+        thumb.classList.toggle('active', idx === i);
+      });
+    }
+
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => {
+        index = i;
+        showSlide(index);
+      });
+    });
+
+    const interval = setInterval(() => {
+      index++;
+      if (index < totalSlides) {
+        showSlide(index);
+      } else {
+        clearInterval(interval);
+        carrusel.style.animation = "fadeOut 1.5s forwards";
+        setTimeout(() => {
+          carrusel.style.display = "none";
+          contenido.style.display = "block";
+        }, 1500);
+      }
+    }, 4000);
+  </script>
+
+</body>
+</html>
+

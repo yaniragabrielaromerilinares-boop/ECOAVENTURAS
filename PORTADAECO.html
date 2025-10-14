@@ -1,0 +1,193 @@
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body, html { height:100%; width:100%; overflow:hidden; font-family<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portada EcoAventuras</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">: 'Montserrat', sans-serif; }
+
+  /* Video de fondo */
+  video {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1;
+  }
+
+  /* Botón audio */
+  .audio-btn {
+    position: absolute;
+    bottom:30px;
+    right:30px;
+    z-index:50;
+    background: rgba(0,0,0,0.6);
+    color:white;
+    border:none;
+    padding:12px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition: 0.3s;
+  }
+  .audio-btn:hover { background:#90ee90; color:black; }
+
+  
+  .header-left {
+    position:absolute;
+    font-family: 'Luckiest Guy', serif;
+      font-size: 40px;
+      font-weight: bold;
+      background: linear-gradient(to right, #1EADF0, #0AFB60);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 0px 20px rgba(0,255,100,0.8);
+  }
+  
+  .header-left img { width:60px; height:60px; border:2px solid white; border-radius:10px; }
+  .header-left span {
+    font-size:28px;
+    font-weight:bold;
+    color:white;
+  }
+
+  /* Menú */
+  .nav-right {
+    position:absolute;
+    top:30px;
+    right:40px;
+    z-index:50;
+  }
+  .nav-right ul { list-style:none; display:flex; gap:30px; }
+  .nav-right ul li a {
+    text-decoration:none;
+    font-size:18px;
+    font-weight:500;
+    text-transform:uppercase;
+    color:white; /* menú en blanco */
+    transition:0.3s;
+  }
+  .nav-right ul li a:hover { color:#90ee90; }
+
+  /* Iconos redes */
+  .apps-right {
+    position:absolute;
+    top:90px;
+    right:40px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    z-index:50;
+  }
+  .apps-right a {
+    font-size:20px;
+    text-align:center;
+    padding:14px;
+    border-radius:50%;
+    text-decoration:none;
+    background:none; /* sin relleno */
+    border:3px solid;
+    border-image: linear-gradient(135deg,#00d2ff,#00ff90) 1;
+    color:white;
+    transition:0.3s;
+  }
+  .apps-right a:hover { filter: brightness(1.3); }
+
+  /* Título principal */
+  .main-title {
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-size:90px;
+    font-weight:bold;
+    text-align:center;
+    color:transparent;
+    background: linear-gradient(90deg,#006400,#00ff7f); /* verde oscuro → verde claro */
+    -webkit-background-clip: text; /* aplica degradado interno */
+    -webkit-text-fill-color: transparent; /* relleno transparente */
+    -webkit-text-stroke:1.5px white; /* borde blanco delgado */
+    opacity:0;
+    animation: fadeInUp 1s forwards;
+    animation-delay:2s;
+    z-index:50;
+  }
+
+  /* Subtítulo */
+  .subtitle {
+    position:absolute;
+    bottom:90px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:24px;
+    color:white;
+    text-align:center;
+    line-height:1.4;
+    text-shadow: 0 0 5px #003300, 0 0 10px #003300;
+    z-index:50;
+  }
+
+  @keyframes fadeInUp {
+    0% { opacity:0; transform: translate(-50%, -60%); }
+    100% { opacity:1; transform: translate(-50%, -50%); }
+  }
+
+  @media (max-width:768px){
+    .main-title{ font-size:50px; }
+    .header-left span{ font-size:20px; }
+    .nav-right ul li a{ font-size:14px; }
+    .subtitle{ font-size:18px; }
+    .apps-right a{ padding:10px; font-size:18px; }
+  }
+</style>
+</head>
+<body>
+
+<video id="video-bg" autoplay loop muted playsinline>
+  <source src="VIDEOA.mp4" type="video/mp4">
+  Tu navegador no soporta videos HTML5.
+</video>
+
+<button class="audio-btn" id="toggleAudio">Activar sonido</button>
+
+<div class="header-left">
+  <img src="logo.jpg" alt="Logo">
+  <span>ECOAVENTURAS</span>
+</div>
+
+<div class="nav-right">
+  <ul>
+    <li><a href="ACTIVIDADESECO.html">Dinámicas</a></li>
+    <li><a href="RESERVAECO.html">Reservas</a></li>
+    <li><a href="PROMOCIONESECO.html">Promociones</a></li>
+    <li><a href="HISTORIASECO.html">Historia</a></li>
+  </ul>
+</div>
+
+<div class="apps-right">
+  <a href="https://www.tiktok.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+  <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a href="https://maps.google.com" target="_blank" title="Ubicación"><i class="fas fa-map-marker-alt"></i></a>
+</div>
+
+<div class="main-title">BIENVENIDOS <br> AL PARQUE ECOAVENTURAS</div>
+<div class="subtitle">TU REFUGIO DE RECREACIÓN Y DESCANSO</div>
+
+<script>
+const video = document.getElementById('video-bg');
+const btn = document.getElementById('toggleAudio');
+
+btn.addEventListener('click', () => {
+  video.muted = !video.muted;
+  btn.textContent = video.muted ? "Activar sonido" : "Silenciar sonido";
+});
+</script>
+</body>
+</html>
